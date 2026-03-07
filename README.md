@@ -31,7 +31,7 @@ The system supports multiple AI providers and intelligently blends stock footage
 
 2. **Install Python dependencies**:
    ```bash
-   pip install openai google-generativeai moviepy pydantic-settings requests pillow
+   pip install openai google-genai moviepy pydantic-settings requests pillow
    ```
 
 3. **Set up environment variables**:
