@@ -1,0 +1,36 @@
+1
+00:00:00,000 --> 00:00:15,000
+Every day, you touch it hundreds of times. To unlock your phone, to order food, or to navigate your car. But have you ever wondered who actually invented the screen beneath your fingers?
+
+2
+00:00:15,000 --> 00:00:35,000
+The story doesn't start with Apple in 2007. It begins in 1965, at a government research lab in the UK. Engineer E.A. Johnson published the first paper describing a 'capacitive' touch screen.
+
+3
+00:00:35,000 --> 00:00:55,000
+Johnson's invention was designed for air traffic control. It could only handle one touch at a time and was purely binary—it could only tell if it was being touched or not. No sliding, no pinching.
+
+4
+00:00:55,000 --> 00:01:20,000
+By the early 1970s, the focus shifted to CERN in Switzerland. Engineers Bent Stumpe and Frank Beck needed a better way to control a massive particle accelerator. They developed a transparent touch screen that used hundreds of etched capacitors.
+
+5
+00:01:20,000 --> 00:01:45,000
+Meanwhile, in America, Dr. Sam Hurst at the University of Kentucky made a breakthrough by accident. While trying to read data from a strip chart recorder, he created the 'Elograph' in 1971. It wasn't transparent, but it was the first 'resistive' touch sensor.
+
+6
+00:01:45,000 --> 00:02:05,000
+In 1974, Hurst founded Elographics and produced the first truly transparent resistive screen. Unlike Johnson’s capacitive version, this one responded to pressure. This meant you could use a stylus, a pen, or even a gloved hand.
+
+7
+00:02:05,000 --> 00:02:20,000
+Commercialization exploded in the 1980s. HP released the HP-150 in 1983, which used an infrared light grid to detect fingers. But these screens were still clunky and often inaccurate.
+
+8
+00:02:20,000 --> 00:02:45,000
+The final revolution came in 2007. When Steve Jobs unveiled the iPhone, multi-touch technology became the global standard. It used advanced capacitive tech to track multiple fingers at once, changing how we interact with machines forever.
+
+9
+00:02:45,000 --> 00:03:00,000
+From a British radar lab to a global necessity, the touch screen is a masterpiece of collaborative innovation. Next time you swipe, remember the decades of genius that made it possible. Don't forget to like and subscribe for more tech history!
+
