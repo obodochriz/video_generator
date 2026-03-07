@@ -1,0 +1,9 @@
+.env
+*.mp4
+*.mp3
+*.png
+*.jpg
+*.jpeg
+*.srt
+__pycache__/
+*.pyc
