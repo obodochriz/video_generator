@@ -3,6 +3,7 @@ import os
 from moviepy import (
     VideoFileClip,
     ImageClip,
+    ColorClip,
     AudioFileClip,
     CompositeVideoClip,
     concatenate_videoclips
@@ -103,28 +104,21 @@ def build_video(scenes, output_filename: str):
         # -------------------------
         elif os.path.exists(image_path):
 
-            img_clip = ImageClip(image_path)
-            img_clip = img_clip.with_duration(audio.duration)
-
-            # Start slightly zoomed
-            img_clip = img_clip.resized(1.1)
-
-            # Stronger cinematic zoom over time
-            img_clip = img_clip.resized(
-                lambda t: 1.1 + (0.15 * (t / audio.duration))
+            # Fit first, then animate so every frame remains 1920x1080-compatible.
+            duration = max(audio.duration, 0.01)
+            base_img = fit_to_youtube(
+                ImageClip(image_path).with_duration(duration)
             )
-
-            # Slow horizontal pan
-            img_clip = img_clip.with_position(
-                lambda t: (
-                    -100 * (t / audio.duration),  # pan left slowly
-                    "center"
-                )
+            moving_img = (
+                base_img
+                .resized(lambda t: 1.0 + (0.12 * (t / duration)))
+                .with_position("center")
             )
-
-            img_clip = fit_to_youtube(img_clip)
-
-            clip = img_clip.with_audio(audio)
+            motion_canvas = CompositeVideoClip(
+                [moving_img],
+                size=TARGET_SIZE
+            ).with_duration(duration)
+            clip = motion_canvas.with_audio(audio)
 
         # -------------------------
         # EMERGENCY FALLBACK
@@ -132,9 +126,9 @@ def build_video(scenes, output_filename: str):
         else:
             print(f"⚠ No visual found for scene {i}")
 
-            blank = ImageClip(
-                color=(0, 0, 0),
-                size=TARGET_SIZE
+            blank = ColorClip(
+                size=TARGET_SIZE,
+                color=(0, 0, 0)
             ).with_duration(audio.duration)
 
             clip = blank.with_audio(audio)

@@ -27,7 +27,7 @@ class OpenAIProvider(AIProvider):
         """
 
         response = self.client.chat.completions.create(
-            model="gpt-5.2",
+            model=settings.openai_script_model,
             response_format={"type": "json_object"},
             messages=[{"role": "user", "content": prompt}],
         )

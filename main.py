@@ -8,7 +8,21 @@ from video.video_builder import build_video
 from video.thumbnail_generator import generate_thumbnail
 from video.utils import generate_filename_from_topic
 from video.stock_video_fetcher import fetch_stock_video
+import glob
+import os
 import random
+import shutil
+
+
+def cleanup_scene_assets():
+    patterns = ["scene_*.mp3", "scene_*.mp4", "scene_*.png"]
+    for pattern in patterns:
+        for path in glob.glob(pattern):
+            try:
+                os.remove(path)
+                print(f"🧹 Deleted: {path}")
+            except OSError as e:
+                print(f"⚠ Could not delete {path}: {e}")
 
 
 def main():
@@ -16,6 +30,8 @@ def main():
     topic = input("Topic: ")
     duration = int(input("Duration (seconds): "))
     model_choice = input("Model (openai/gemini): ").lower()
+    if model_choice not in {"openai", "gemini"}:
+        raise ValueError("Model must be either 'openai' or 'gemini'.")
 
     if model_choice == "openai":
         provider = OpenAIProvider()
@@ -62,8 +78,30 @@ def main():
             # If stock was downloaded but we chose AI,
             # optionally delete stock file
             if stock_found:
-                import os
                 os.remove(video_path)
+
+    # 3.5️⃣ Always append closing CTA segment
+    cta_text = "Kindly like and subscribe to ensure you see future videos"
+    cta_index = len(scenes)
+    generate_voice(cta_text, f"scene_{cta_index}.mp3")
+
+    # Reuse previous visual asset for continuity, if available.
+    if cta_index > 0:
+        prev_video = f"scene_{cta_index - 1}.mp4"
+        prev_image = f"scene_{cta_index - 1}.png"
+        cta_video = f"scene_{cta_index}.mp4"
+        cta_image = f"scene_{cta_index}.png"
+
+        if os.path.exists(prev_video):
+            shutil.copy2(prev_video, cta_video)
+        elif os.path.exists(prev_image):
+            shutil.copy2(prev_image, cta_image)
+
+    scenes.append({
+        "narration": cta_text,
+        "visual_prompt": "Closing call to action",
+        "duration": 4
+    })
 
     # 4️⃣ Build video
     # build_video(scenes)
@@ -74,6 +112,7 @@ def main():
     build_video(scenes, output_filename)
 
     print(f"✅ Video generated: {output_filename}")
+    cleanup_scene_assets()
 
     # 5️⃣ Subtitles
     generate_srt(scenes, "subtitles.srt")
@@ -82,7 +121,8 @@ def main():
     # generate_thumbnail(data["title"],model_choice)
 
     print("✅ Video, subtitles, and thumbnail generated.")
-
+    # Ensure clean up is well done 
+    cleanup_scene_assets()
 
 if __name__ == "__main__":
     main()

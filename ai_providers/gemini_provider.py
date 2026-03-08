@@ -29,7 +29,7 @@ class GeminiProvider(AIProvider):
         """
 
         response = self.client.models.generate_content(
-            model="gemini-3-flash-preview",
+            model=settings.gemini_script_model,
             contents=prompt
         )
 
